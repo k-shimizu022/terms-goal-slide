@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今期の戦略インフォグラフィック：一人当たり粗利最大化への道</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .chart-container {
+            position: relative;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'palette-red': '#FF6B6B',
+                        'palette-yellow': '#FFD166',
+                        'palette-green': '#06D6A0',
+                        'palette-blue': '#118AB2',
+                        'palette-darkblue': '#073B4C',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    transformOrigin: {
+                        '0': '0%',
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                        'spacing': 'margin, padding',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-palette-darkblue font-sans antialiased">
+    <main class="container mx-auto p-4 sm:p-6 md:p-8">
+
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-palette-darkblue leading-tight">今期の挑戦</h1>
+            <p class="text-xl sm:text-2xl text-palette-blue mt-2">一人当たり粗利最大化による成長戦略</p>
+        </header>
+
+        <section id="slogan" class="mb-12 md:mb-16 p-6 bg-white rounded-xl shadow-2xl transform hover:scale-[1.01] transition-transform duration-300 ease-out">
+            <h2 class="text-2xl md:text-3xl font-semibold text-palette-blue mb-4 text-center">🎯 我々のスローガン</h2>
+            <div class="text-center">
+                <p class="text-4xl md:text-5xl font-bold text-palette-red my-6 leading-tight">「最小の資本と人で最大の付加価値をつくる」</p>
+                <p class="text-lg md:text-xl text-palette-darkblue mt-4 max-w-3xl mx-auto">これは、私たち全従業員が共有し、日々の業務で追求すべき核心的な指針です。限られた経営資源を最大限に活かし、個々の能力とチームワークを結集して、企業価値の向上を目指します。</p>
+                <p class="text-2xl md:text-3xl font-bold text-palette-green mt-8">→ 社員一人当たりの粗利を最大化する</p>
+                <p class="text-lg md:text-xl text-palette-darkblue mt-4 max-w-3xl mx-auto">この具体的な目標達成を通じて、スローガンの実現を目指します。持続的な成長と、社員一人ひとりへの適切な還元を実現するための重要なステップです。</p>
+            </div>
+        </section>
+
+        <section id="overall-goals" class="mb-12 md:mb-16 p-6 bg-white rounded-xl shadow-2xl">
+            <h2 class="text-2xl md:text-3xl font-semibold text-palette-blue mb-6 text-center">📊 全社粗利目標と現状</h2>
+            <p class="text-md md:text-lg text-palette-darkblue mb-8 text-center max-w-2xl mx-auto">会社全体の収益性向上のため、具体的かつ挑戦的な粗利目標を設定しています。これは全社一丸となって取り組むべき重要な指標です。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="chart-container w-full max-w-md mx-auto h-72 sm:h-80 md:h-96 max-h-[450px]">
+                    <canvas id="grossProfitGoalChart"></canvas>
+                </div>
+                <div class="text-palette-darkblue">
+                    <h3 class="text-xl font-semibold text-palette-blue mb-3">目標数値（月間）</h3>
+                    <div class="space-y-3">
+                        <div class="p-4 bg-blue-50 border-l-4 border-palette-blue rounded-r-lg shadow-sm">
+                            <p class="text-sm">最低目標 (従業員11名)</p>
+                            <p class="text-3xl font-bold text-palette-blue">880<span class="text-lg ml-1">万円</span></p>
+                            <p class="text-sm">(一人当たり <span class="font-semibold">80万円</span>)</p>
+                        </div>
+                        <div class="p-4 bg-green-50 border-l-4 border-palette-green rounded-r-lg shadow-sm">
+                            <p class="text-sm">目標 (従業員11名)</p>
+                            <p class="text-3xl font-bold text-palette-green">1,100<span class="text-lg ml-1">万円以上</span></p>
+                            <p class="text-sm">(一人当たり <span class="font-semibold">100万円以上</span>)</p>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-md">これらの目標は、私たちの潜在能力を最大限に引き出し、企業としての成長を加速させるためのものです。最低目標の達成は必達とし、さらに高い目標を目指して努力します。</p>
+                </div>
+            </div>
+
+            <hr class="my-8 md:my-12 border-gray-300">
+
+            <div>
+                <h3 class="text-xl md:text-2xl font-semibold text-palette-blue mb-6 text-center">📈 最近の月次実績（一人当たり粗利）</h3>
+                <p class="text-md md:text-lg text-palette-darkblue mb-8 text-center max-w-2xl mx-auto">目標達成に向けた進捗を把握するため、月次での実績を注視しています。現状を正確に理解し、次なるアクションプランに繋げます。</p>
+                <div class="chart-container w-full max-w-lg mx-auto h-72 sm:h-80 md:h-96 max-h-[450px]">
+                    <canvas id="monthlyPerformanceChart"></canvas>
+                </div>
+                <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                    <div class="p-4 bg-green-50 rounded-lg shadow">
+                        <p class="text-lg font-semibold text-palette-green">4月実績</p>
+                        <p class="text-3xl font-bold text-palette-green">81<span class="text-lg ml-1">万円</span></p>
+                        <p class="text-sm text-green-700">(目標80万円に対し <span class="font-semibold">達成 OK!</span>)</p>
+                        <p class="text-xs text-gray-600">(全社粗利: 893万円)</p>
+                    </div>
+                    <div class="p-4 bg-red-50 rounded-lg shadow">
+                        <p class="text-lg font-semibold text-palette-red">5月実績</p>
+                        <p class="text-3xl font-bold text-palette-red">48<span class="text-lg ml-1">万円</span></p>
+                        <p class="text-sm text-red-700">(目標80万円に対し <span class="font-semibold">未達 NG...</span>)</p>
+                        <p class="text-xs text-gray-600">(全社粗利: 527万円。80万円基準では約7人分)</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-md text-palette-darkblue text-center max-w-2xl mx-auto">4月は目標をクリアしましたが、5月は厳しい結果となりました。この結果を真摯に受け止め、要因を分析し、改善策を講じることが急務です。</p>
+            </div>
+        </section>
+
+        <section id="sales-targets" class="mb-12 md:mb-16 p-6 bg-white rounded-xl shadow-2xl">
+            <h2 class="text-2xl md:text-3xl font-semibold text-palette-blue mb-6 text-center">💼 営業部門の目標と時間価値</h2>
+            <p class="text-md md:text-lg text-palette-darkblue mb-8 text-center max-w-2xl mx-auto">特に営業部門は、会社の収益創出の最前線です。明確な目標設定と、日々の業務における時間価値の意識が不可欠です。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <div class="text-center p-6 bg-blue-50 rounded-lg shadow-lg flex flex-col justify-center">
+                    <p class="text-lg text-palette-blue">営業部門 (5名体制)</p>
+                    <p class="text-palette-darkblue mt-1">一人当たり月間最低粗利目標:</p>
+                    <p class="text-5xl font-bold text-palette-blue my-3 leading-none">176<span class="text-2xl ml-1">万円</span></p>
+                    <p class="text-sm text-gray-700">この目標達成が、全社目標達成の重要な推進力となります。</p>
+                </div>
+                <div class="text-center p-6 bg-yellow-50 rounded-lg shadow-lg flex flex-col justify-center">
+                     <p class="text-lg text-palette-darkblue">あなたの1時間の価値は？ ⏰💰</p>
+                    <p class="text-palette-darkblue mt-1">営業一人当たり月176万円の粗利を出すためには...</p>
+                    <p class="text-3xl sm:text-4xl font-bold text-palette-red my-3 leading-none">1時間 ＝ 1<span class="text-xl sm:text-2xl ml-1">万円</span></p>
+                    <p class="text-sm text-gray-700">(176万円 ÷ 22日 ÷ 8時間)</p>
+                    <p class="mt-3 text-md text-palette-darkblue font-semibold">「今の仕事は1時間1万円の価値を生んでいるか？」<br>常に自問自答し、生産性を追求しましょう。</p>
+                </div>
+            </div>
+            <p class="mt-8 text-md md:text-lg text-palette-darkblue text-center max-w-2xl mx-auto">日々の業務において、自身の行動がどれだけの価値を生み出しているかを意識することが、生産性向上への第一歩です。時間を有効活用し、より付加価値の高い活動に注力しましょう。</p>
+        </section>
+
+        <section id="salary-rules" class="mb-12 md:mb-16 p-6 bg-white rounded-xl shadow-2xl">
+            <h2 class="text-2xl md:text-3xl font-semibold text-palette-blue mb-6 text-center">📜 給与規定の変更（インセンティブ強化）</h2>
+            <p class="text-md md:text-lg text-palette-darkblue mb-8 text-center max-w-2xl mx-auto">社員の皆様の努力と成果がより適切に報われるよう、そして更なるモチベーション向上に繋がるよう、給与規定を見直しました。頑張りが直接評価される透明性の高い制度を目指します。</p>
+            <div class="space-y-6">
+                <div class="p-6 border-2 border-palette-blue rounded-lg bg-blue-50 shadow-md">
+                    <h3 class="text-xl font-semibold text-palette-blue mb-2">① 決算賞与 💰</h3>
+                    <p class="text-palette-darkblue">決算月に、会社全体の業績および個人の査定結果に応じて賞与を支給します。</p>
+                    <p class="text-sm text-red-600 mt-1">※ 会社の業績が芳しくない場合や、個人査定が低い場合は、支給額が0となる可能性もあります。</p>
+                </div>
+
+                <div class="p-6 border-2 border-palette-green rounded-lg bg-green-50 shadow-md">
+                    <h3 class="text-xl font-semibold text-palette-green mb-3">② 歩合率の改定 (期間売上ベース) 🚀</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-white rounded-md shadow-sm">
+                            <span class="text-3xl mr-4 text-palette-green">1️⃣</span>
+                            <div>
+                                <p class="font-medium text-palette-darkblue">期間売上 <span class="font-bold text-lg">1,200万円</span>に達するまで：</p>
+                                <p class="text-2xl font-bold text-palette-green">歩合率 5%</p>
+                            </div>
+                        </div>
+                        <div class="text-center text-4xl text-palette-green font-bold my-2 transform rotate-90 md:rotate-0">→</div>
+                        <div class="flex items-center p-3 bg-white rounded-md shadow-sm">
+                            <span class="text-3xl mr-4 text-palette-green">2️⃣</span>
+                            <div>
+                                <p class="font-medium text-palette-darkblue">期間売上 <span class="font-bold text-lg">1,200万円</span> 超過後：</p>
+                                <p class="text-2xl font-bold text-palette-green">歩合率 10%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 border-2 border-palette-yellow rounded-lg bg-yellow-50 shadow-md">
+                    <h3 class="text-xl font-semibold text-orange-500 mb-2">③ 特例措置 (四半期売上0円の場合) ⚠️</h3>
+                    <p class="text-palette-darkblue">万が一、四半期での売上が0円だった場合、その後の売上が<span class="font-bold text-lg">300万円</span>に達するまでは、</p>
+                    <p class="text-2xl font-bold text-orange-600 mt-1">歩合率 2.5%</p>
+                    <p class="text-sm text-gray-600 mt-1">この特例は、再起を支援するための措置です。</p>
+                </div>
+            </div>
+            <p class="mt-8 text-md md:text-lg text-palette-darkblue text-center max-w-2xl mx-auto">これらの変更は、成果に対する報酬を明確にし、社員一人ひとりの挑戦を後押しすることを目的としています。詳細は別途説明会にてご案内します。</p>
+        </section>
+
+        <footer class="text-center mt-12 md:mt-16 py-8 border-t border-gray-300">
+            <p class="text-2xl md:text-3xl font-bold text-palette-darkblue mb-4">全員で目標達成を目指そう！</p>
+            <p class="text-lg text-palette-blue mb-6">「最小の資本と人で最大の付加価値をつくる」</p>
+            <p class="text-md text-palette-darkblue max-w-xl mx-auto">一人ひとりの意識と行動が、会社の未来を創ります。<br>共に成長し、この挑戦を成功させましょう。</p>
+        </footer>
+
+    </main>
+
+    <script>
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: {
+                    backgroundColor: 'rgba(7, 59, 76, 0.9)', // palette-darkblue with alpha
+                    titleColor: '#FFFFFF',
+                    bodyColor: '#FFFFFF',
+                    titleFont: { weight: 'bold', size: 14 },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 6,
+                    displayColors: true,
+                    borderColor: 'rgba(255,255,255,0.2)',
+                    borderWidth: 1,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            if (!item || !item.chart || !item.chart.data || !item.chart.data.labels) return '';
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            }
+                            return label || '';
+                        },
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y + '万円';
+                            }
+                            return label;
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: "'Inter', 'Noto Sans JP', sans-serif",
+                            size: 12
+                        },
+                        color: '#073B4C', // palette-darkblue
+                        padding: 20
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            family: "'Inter', 'Noto Sans JP', sans-serif",
+                            size: 11
+                        },
+                        color: '#073B4C' // palette-darkblue
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            family: "'Inter', 'Noto Sans JP', sans-serif",
+                            size: 11
+                        },
+                        color: '#073B4C', // palette-darkblue
+                        callback: function(value) {
+                            return value + '万円';
+                        }
+                    },
+                    grid: {
+                        color: '#E0E0E0', // light gray
+                        borderDash: [3, 3]
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeInOutQuart'
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const fontFamily = "'Inter', 'Noto Sans JP', sans-serif";
+            Chart.defaults.font.family = fontFamily;
+            Chart.defaults.color = '#073B4C'; // palette-darkblue
+
+            const ctxGrossProfitGoal = document.getElementById('grossProfitGoalChart');
+            if (ctxGrossProfitGoal) {
+                new Chart(ctxGrossProfitGoal.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['最低目標 (月)', '目標 (月)'],
+                        datasets: [{
+                            label: '全社粗利目標',
+                            data: [880, 1100],
+                            backgroundColor: ['#118AB2', '#06D6A0'], // palette-blue, palette-green
+                            borderColor: ['#073B4C', '#073B4C'], // palette-darkblue
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.7
+                        }]
+                    },
+                    options: { ...commonChartOptions }
+                });
+            }
+
+            const ctxMonthlyPerformance = document.getElementById('monthlyPerformanceChart');
+            if (ctxMonthlyPerformance) {
+                new Chart(ctxMonthlyPerformance.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['4月実績', '5月実績'],
+                        datasets: [
+                        {
+                            label: '一人当たり粗利実績',
+                            data: [81, 48],
+                            backgroundColor: ['#06D6A0', '#FF6B6B'], // palette-green, palette-red
+                            borderColor: ['#073B4C', '#073B4C'], // palette-darkblue
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            barPercentage: 0.5,
+                            categoryPercentage: 0.6,
+                            order: 2 // Bar chart on top
+                        },
+                        {
+                            label: '最低目標ライン (80万円)',
+                            data: [80, 80],
+                            type: 'line',
+                            borderColor: '#FFD166', // palette-yellow
+                            borderWidth: 3,
+                            fill: false,
+                            pointRadius: 0,
+                            pointHoverRadius: 0,
+                            borderDash: [6, 3],
+                            order: 1, // Line chart behind
+                            tension: 0.1
+                        }]
+                    },
+                    options: { ...commonChartOptions }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
